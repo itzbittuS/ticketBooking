@@ -1,0 +1,77 @@
+<%- include('layout/header') %>
+<div class="container mb-3">
+    <div id="carouselExampleCaptions" class="carousel slide ">
+      <div class="carousel-indicators ">
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+      </div>
+      <div class="carousel-inner rounded rounded-4">
+        <div class="carousel-item active">
+          <img src="https://wallpaperaccess.com/full/300505.jpg" class="d-block w-100" alt="...">
+          <div class="carousel-caption d-none d-md-block">
+            <h5>interstellar </h5>
+            <p>epic science fiction</p>
+          </div>
+        </div>
+        <div class="carousel-item rounded rounded-4">
+          <img src="https://images6.alphacoders.com/139/thumb-1920-1398872.jpg" class="d-block w-100" alt="...">
+          <div class="carousel-caption d-none d-md-block">
+            <h5> Avatar: Fire and Ash</h5>
+            <p>science fiction (sci-fi)</p>
+          </div>
+        </div>
+        <div class="carousel-item rounded rounded-4">
+          <img src="https://wallpapercave.com/wp/wp15992871.jpg" class="d-block w-100" alt="...">
+          <div class="carousel-caption d-none d-md-block">
+            <h5>Dhurandar</h5>
+            <p>Action, Thriller, and Spy</p>
+          </div>
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+</div>
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="section-title">Now Showing</h2>
+            <a href="/admin/add-movie" class="btn btn-sm btn-outline-danger">Add Movie</a>
+        </div>
+
+        <div class="row g-4">
+            <% if(movies.length> 0) { %>
+                <% movies.forEach(movie=> { %>
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="movie-card">
+                            <% let imageSrc=movie.poster; if (!movie.poster.startsWith('http')) { imageSrc='/uploads/' +
+                                movie.poster; } %>
+                                <img src="<%= imageSrc %>" alt="<%= movie.title %>">
+
+                                <div class="movie-overlay">
+                                    <h5 class="fw-bold text-white">
+                                        <%= movie.title %>
+                                    </h5>
+                                    <p class="mb-1 text-white small">
+                                        <%= movie.genre %> • ⭐ <%= movie.rating %>
+                                    </p>
+                                    <a href="/booking/<%= movie._id %>" class="btn btn-danger">Book Ticket</a>
+                                </div>
+                        </div>
+                    </div>
+                    <% }) %>
+                        <% } else { %>
+                            <div class="text-center py-5">
+                                <h3 class="text-secondary">No movies found. Run seed.js or add one!</h3>
+                            </div>
+                            <% } %>
+        </div>
+    </div>
+
+    <%- include('layout/footer') %>

@@ -1,0 +1,423 @@
+/* Import Poppins for modern feel */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+/* Global Reset & Base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(to bottom, #e7e2e2, #f5eded);
+    color: #000000;
+    font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #111;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #e50914;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #ff1a1a;
+}
+
+/* Glassmorphism Base Class */
+.glass-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
+    transition: all 0.4s ease;
+}
+
+.glass-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(229, 9, 20, 0.2);
+    border-color: rgba(229, 9, 20, 0.3);
+}
+
+/* Navbar */
+.glass-nav {
+    background: rgba(0, 0, 0, 0.7) !important;
+    backdrop-filter: blur(15px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.navbar-brand {
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.navbar-brand span {
+    color: #e50914;
+}
+
+/* Home Page - Movie Cards */
+.movie-card {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    height: 450px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    transition: all 0.5s ease;
+}
+
+.movie-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.movie-card:hover img {
+    transform: scale(1.1);
+}
+
+.movie-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+    padding: 30px 20px 20px;
+    transform: translateY(100%);
+    transition: transform 0.4s ease;
+}
+
+.movie-card:hover .movie-overlay {
+    transform: translateY(0);
+}
+
+.movie-overlay h5 {
+    font-size: 1.4rem;
+    margin-bottom: 8px;
+}
+
+.movie-overlay .btn-danger {
+    background: #e50914;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 30px;
+    font-weight: 600;
+}
+
+/* Shows Page - Header Background */
+.movie-header-bg {
+    background-size: cover;
+    background-position: center;
+    min-height: 70vh;
+    position: relative;
+}
+
+.movie-header-bg::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, transparent 40%, #000000);
+}
+
+/* Showtime Buttons */
+.time-slot-btn {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    padding: 20px;
+    text-align: center;
+    transition: all 0.4s ease;
+    min-width: 140px;
+}
+
+.time-slot-btn:hover {
+    background: rgba(229, 9, 20, 0.15);
+    border-color: #e50914;
+    transform: scale(1.08) translateY(-5px);
+    box-shadow: 0 10px 25px rgba(229, 9, 20, 0.3);
+}
+
+.time-slot-btn .time {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #e50914;
+}
+
+.time-slot-btn .screen-info {
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+.time-slot-btn .seats-left {
+    font-size: 0.85rem;
+    color: #4ade80;
+    font-weight: 600;
+}
+
+/* Seats Page */
+.screen-container {
+    position: relative;
+    margin: 50px auto;
+    width: 80%;
+}
+
+.screen {
+    height: 20px;
+    background: linear-gradient(to bottom, #e50914, #ff3333);
+    border-radius: 50px 50px 0 0;
+    box-shadow: 0 0 30px rgba(229, 9, 20, 0.6);
+}
+
+.screen::before {
+    content: 'SCREEN';
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: 8px;
+    color: #e50914;
+}
+
+.seat-grid {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    gap: 15px;
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 30px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 20px;
+}
+
+.seat-box {
+    perspective: 1000px;
+}
+
+.seat-checkbox {
+    display: none;
+}
+
+.seat-box span {
+    display: block;
+    width: 100%;
+    height: 50px;
+    background: #2d3748;
+    border-radius: 10px;
+    text-align: center;
+    line-height: 50px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+}
+
+.seat-checkbox:checked+span {
+    background: #e50914;
+    transform: translateY(-10px) rotateX(20deg);
+    box-shadow: 0 15px 25px rgba(229, 9, 20, 0.5);
+}
+
+.seat-box.booked span {
+    background: #4a5568;
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+/* Ticket Page */
+.ticket-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    border: 2px solid #e50914;
+}
+
+/* Buttons */
+.btn-danger {
+    background: #e50914 !important;
+    border: none !important;
+    border-radius: 30px;
+    padding: 12px 30px;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.btn-danger:hover {
+    background: #ff1a1a !important;
+    transform: scale(1.05);
+}
+
+/* Seat Selection Enhancements */
+.screen-container {
+    position: relative;
+    margin: 60px auto 80px;
+    max-width: 900px;
+}
+
+.screen-3d {
+    height: 40px;
+    background: linear-gradient(to bottom, #ff3333, #e50914);
+    border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+    box-shadow: 0 0 60px rgba(229, 9, 20, 0.8);
+    position: relative;
+}
+
+.screen-3d::before {
+    content: '';
+    position: absolute;
+    inset: -20px;
+    background: radial-gradient(circle, rgba(229, 9, 20, 0.3), transparent);
+    border-radius: 50%;
+}
+
+.screen-label {
+    margin-top: 20px;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #e50914;
+    letter-spacing: 10px;
+    text-shadow: 0 0 20px #e50914;
+}
+
+.seat-layout {
+    max-width: 900px;
+    margin: 0 auto;
+    perspective: 1500px;
+}
+
+.seat-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 15px 0;
+    transform-style: preserve-3d;
+}
+
+.seat-row:nth-child(n+7) {
+    /* Gold rows curve more */
+    transform: translateY(20px) scale(1.05);
+}
+
+.row-label {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #e50914;
+    width: 50px;
+    text-align: center;
+}
+
+.seats {
+    display: flex;
+    gap: 12px;
+    transform: rotateX(20deg);
+}
+
+.seat {
+    position: relative;
+    cursor: pointer;
+}
+
+.seat input {
+    display: none;
+}
+
+.seat-visual {
+    display: block;
+    width: 50px;
+    height: 50px;
+    background: #2d3748;
+    border-radius: 12px;
+    text-align: center;
+    line-height: 50px;
+    font-weight: 700;
+    color: #fff;
+    transition: all 0.4s ease;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+    transform: translateY(0);
+}
+
+.seat:hover .seat-visual:not(.booked .seat-visual) {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(229, 9, 20, 0.4);
+}
+
+.seat.selected .seat-visual {
+    background: #e50914;
+    transform: translateY(-15px) rotateX(-20deg);
+    box-shadow: 0 20px 40px rgba(229, 9, 20, 0.6);
+    animation: pulse 1s infinite alternate;
+}
+
+.seat.booked .seat-visual {
+    background: #4a5568;
+    cursor: not-allowed;
+    opacity: 0.5;
+    box-shadow: none;
+}
+
+.seat.gold .seat-visual {
+    background: #b8860b;
+}
+
+/* Optional gold color */
+
+@keyframes pulse {
+    from {
+        box-shadow: 0 20px 40px rgba(229, 9, 20, 0.6);
+    }
+
+    to {
+        box-shadow: 0 25px 50px rgba(229, 9, 20, 0.8);
+    }
+}
+
+/* Legend */
+.legend {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1rem;
+}
+
+.legend-color {
+    width: 25px;
+    height: 25px;
+    border-radius: 8px;
+}
+
+.legend-color.available {
+    background: #2d3748;
+}
+
+.legend-color.selected {
+    background: #e50914;
+}
+
+.legend-color.booked {
+    background: #4a5568;
+    opacity: 0.5;
+}
+
+.legend-color.gold {
+    background: #b8860b;
+}
+

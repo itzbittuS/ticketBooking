@@ -1,0 +1,29 @@
+<%- include('layout/header') %>
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <div class="ticket-card p-5 text-center rounded-4 shadow-lg border border-danger">
+                <div class="mb-3 text-success fs-1">✔</div>
+                <h2 class="fw-bold">Booking Confirmed!</h2>
+                <hr class="border-secondary my-4">
+                
+                <div class="text-start mb-4">
+                    <p class="mb-1 text-secondary small">Ticket ID: <%= ticket._id %></p>
+                    <p class="mb-1">Movie: <span class="text-danger fw-bold"><%= ticket.show.movie.title %></span></p>
+                    <p class="mb-1">Seats: <strong><%= ticket.seats.join(', ') %></strong></p>
+                    <p class="mb-1">Date: <%= ticket.show.showDate %></p>
+                    <p class="mb-0">Time: <%= ticket.show.showTime %></p>
+                </div>
+
+                <div class="qr-placeholder bg-white p-3 d-inline-block rounded-3 mb-4">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=<%= ticket._id %>" alt="QR">
+                </div>
+
+                <a href="/" class="btn btn-outline-light w-100">Back to Home</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('layout/footer') %>

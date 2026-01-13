@@ -1,0 +1,40 @@
+movie-ticket-app/
+│
+├── app.js
+├── package.json
+│
+├── config/
+│   └── db.js
+│
+├── models/
+│   ├── Customer.js
+│   ├── Movie.js
+│   ├── Theater.js
+│   ├── Screen.js
+│   ├── Show.js
+│   └── Ticket.js
+│
+├── controllers/
+│   ├── homeController.js
+│   ├── bookingController.js
+│
+├── routes/
+│   ├── homeRoutes.js
+│   └── bookingRoutes.js
+│
+├── views/
+│   ├── layout/
+│   │   ├── header.ejs
+│   │   └── footer.ejs
+│   │
+│   ├── index.ejs
+│   ├── movies.ejs
+│   ├── shows.ejs
+│   ├── seats.ejs
+│   └── ticket.ejs
+│
+├── public/
+│   ├── css/style.css
+│   └── images/
+│
+└── seed.js

@@ -1,0 +1,115 @@
+<%- include('layout/header') %>
+
+    <div class="container py-5">
+        <div class="glass-card p-5 rounded-5 border border-secondary shadow-lg">
+            <div class="text-center mb-5">
+                <h2 class="section-title mb-2">Select Your Seats</h2>
+                <p class="text-secondary">
+                    <%= show.movie.title %> | <%= show.showTime %> | Screen <%= show.screen.screenNumber %>
+                </p>
+            </div>
+
+            <!-- Screen Indicator -->
+            <div class="screen-container mb-5 text-center">
+                <div class="screen shadow-lg mb-3"></div>
+                <small class="text-uppercase tracking-wide text-secondary">Screen This Way</small>
+            </div>
+
+            <!-- Add data attribute here -->
+            <form action="/booking" method="POST" id="booking-form" data-ticket-price="<%= show.ticketPrice %>">
+                <input type="hidden" name="showId" value="<%= show._id %>">
+
+                <div class="d-flex justify-content-center mb-5">
+                    <div class="seat-grid" style="display: grid; grid-template-columns: repeat(8, 1fr); gap: 15px;">
+                        <% const totalSeats=40; for(let i=1; i <=totalSeats; i++) { const seatName='A' + i; const
+                            isAvailable=show.availableSeats.includes(seatName); %>
+                            <div class="seat-wrapper text-center">
+                                <input type="checkbox" name="seats" value="<%= seatName %>" id="seat-<%= seatName %>"
+                                    class="btn-check" <%=!isAvailable ? 'disabled' : '' %> >
+
+                                <label
+                                    class="btn <%= isAvailable ? 'btn-outline-danger' : 'btn-secondary disabled' %> rounded-3 p-2 w-100 position-relative d-flex align-items-center justify-content-center"
+                                    for="seat-<%= seatName %>" style="height: 40px; width: 40px;">
+                                    <small>
+                                        <%= i %>
+                                    </small>
+                                </label>
+                            </div>
+                            <% } %>
+                    </div>
+                </div>
+
+                <!-- Legend -->
+                <div class="d-flex justify-content-center gap-4 mb-5">
+                    <div class="d-flex align-items-center gap-2">
+                        <div class="rounded-1 border border-danger" style="width: 20px; height: 20px;"></div>
+                        <small class="text-secondary">Available</small>
+                    </div>
+                    <div class="d-flex align-items-center gap-2">
+                        <div class="bg-danger rounded-1" style="width: 20px; height: 20px;"></div>
+                        <small class="text-secondary">Selected</small>
+                    </div>
+                    <div class="d-flex align-items-center gap-2">
+                        <div class="bg-secondary opacity-50 rounded-1" style="width: 20px; height: 20px;"></div>
+                        <small class="text-secondary">Occupied</small>
+                    </div>
+                </div>
+
+                <!-- Price & Total -->
+                <div class="text-center mb-4">
+                    <h4 class="mb-3">Price per Ticket: <span class="text-warning">₹<%= show.ticketPrice %></span></h4>
+                    <h3 class="fw-bold">Total: ₹<span id="total-price">0</span></h3>
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-danger btn-lg px-5 rounded-pill shadow-lg">Confirm
+                        Booking</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const checkboxes = document.querySelectorAll('.btn-check');
+        const totalPriceElement = document.getElementById('total-price');
+        const bookingForm = document.getElementById('booking-form');
+        // Cleanly get price from data attribute
+        const ticketPrice = Number(bookingForm.dataset.ticketPrice);
+
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', () => {
+                const selectedCount = document.querySelectorAll('.btn-check:checked').length;
+                totalPriceElement.textContent = selectedCount * ticketPrice;
+            });
+        });
+    </script>
+
+    <style>
+        .screen {
+            height: 60px;
+            background: linear-gradient(180deg, rgba(220, 53, 69, 0.5), transparent);
+            transform: perspective(1000px) rotateX(-30deg) scale(0.8);
+            box-shadow: 0 20px 50px rgba(220, 53, 69, 0.2);
+            border-top: 4px solid #dc3545;
+            border-radius: 50% 50% 0 0 / 20px 20px 0 0;
+            width: 60%;
+            margin: 0 auto;
+        }
+
+        .btn-check:checked+.btn-outline-danger {
+            background-color: #dc3545;
+            color: white;
+            box-shadow: 0 0 15px rgba(220, 53, 69, 0.5);
+            border-color: #dc3545;
+        }
+
+        .btn-secondary.disabled {
+            background-color: #444;
+            /* Darker grey for disabled */
+            border-color: #444;
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+    </style>
+
+    <%- include('layout/footer') %>

@@ -1,0 +1,57 @@
+<%- include('layout/header') %>
+
+<div class="container py-5">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="section-title">Now Showing</h2>
+    <a href="/admin/add-movie" class="btn btn-sm btn-outline-danger">Add Movie</a>
+  </div>
+
+  <% if (movies.length > 0) { %>
+    <div class="table-responsive">
+      <table class="table table-hover movie-table glass-table">
+        <thead>
+          <tr>
+            <th scope="col" class="text-center">Poster</th>
+            <th scope="col">Title</th>
+            <th scope="col">Genre</th>
+            <th scope="col" class="text-center">Rating</th>
+            <th scope="col" class="text-center">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% movies.forEach(movie => { %>
+            <tr class="align-middle">
+              <td class="text-center" style="width: 120px;">
+                <% let imageSrc = movie.poster; 
+                   if (!movie.poster.startsWith('http')) { 
+                     imageSrc = '/uploads/' + movie.poster; 
+                   } %>
+                <img src="<%= imageSrc %>" 
+                     alt="<%= movie.title %>" 
+                     class="rounded shadow-sm" 
+                     style="width: 90px; height: 130px; object-fit: cover;">
+              </td>
+              <td class="fw-bold"><%= movie.title %></td>
+              <td><%= movie.genre || 'N/A' %></td>
+              <td class="text-center">
+                <span class="badge bg-warning text-dark">★ <%= movie.rating || 'N/A' %></span>
+              </td>
+              <td class="text-center">
+                <a href="/booking/<%= movie._id %>" 
+                   class="btn btn-danger btn-sm px-4 rounded-pill">
+                  Book Ticket
+                </a>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  <% } else { %>
+    <div class="text-center py-5">
+      <h3 class="text-secondary">No movies found. Run seed.js or add one!</h3>
+    </div>
+  <% } %>
+</div>
+
+<%- include('layout/footer') %>

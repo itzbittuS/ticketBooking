@@ -1,0 +1,59 @@
+<%- include('layout/header') %>
+
+<% if (movie) { %>
+    <div class="movie-header-bg" 
+         style="background: linear-gradient(to bottom, rgba(0,0,0,0.8), #000)">
+        
+        <div class="container py-5 text-center text-md-start">
+            <div class="row align-items-center">
+                <div class="col-md-3 mb-4 mb-md-0">
+                    <img src="<%= movie.poster && movie.poster.startsWith('http') ? movie.poster : '/uploads/' + (movie.poster || 'default.jpg') %>" 
+                         class="img-fluid rounded-4 shadow-lg border border-secondary" 
+                         alt="<%= movie.title %>">
+                </div>
+                <div class="col-md-9">
+                    <h1 class="display-3 fw-bold text-white"><%= movie.title %></h1>
+                    <p class="fs-5 text-white">
+                        <span class="text-danger">⭐ <%= movie.rating %></span> | 
+                        <%= movie.genre %> | <%= movie.duration %> Mins
+                    </p>
+                    <hr class="border-secondary w-25 mx-auto mx-md-0">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container my-5">
+        <div class="glass-card p-5 rounded-5 border border-secondary shadow-lg">
+            <h3 class="fw-bold mb-4 text-center">Select Your Preferred Showtime</h3>
+            
+            <div class="row justify-content-center">
+                <% if(shows && shows.length > 0) { %>
+                    <% shows.forEach(show => { %>
+                        <div class="col-lg-3 col-md-4 col-6 mb-3">
+                            <a href="/booking/seats/<%= show._id %>" class="time-slot-btn text-decoration-none">
+                                <div class="time fw-bold"><%= show.showTime %></div>
+                                <div class="screen-info small text-secondary">Screen <%= show.screen ? show.screen.screenNumber : '1' %></div>
+                                <div class="seats-left small text-success mt-2"><%= show.availableSeats.length %> Seats Available</div>
+                            </a>
+                        </div>
+                    <% }) %>
+                <% } else { %>
+                    <div class="text-center text-secondary py-4">
+                        <h5>No showtimes found for this movie.</h5>
+                        <p>Check back later or try a different movie.</p>
+                    </div>
+                <% } %>
+            </div>
+        </div>
+    </div>
+
+<% } else { %>
+    <div class="container mt-5 text-center py-5">
+        <h2 class="text-danger">Oops! Movie Not Found.</h2>
+        <p class="text-secondary">We couldn't find the details for this film.</p>
+        <a href="/" class="btn btn-danger btn-lg mt-3">Go Back Home</a>
+    </div>
+<% } %>
+
+<%- include('layout/footer') %>
